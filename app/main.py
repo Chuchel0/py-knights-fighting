@@ -89,21 +89,18 @@ KNIGHTS = {
 }
 
 
+def duel(first: Knight, second: Knight) -> None:
+    first.take_damage(second)
+    second.take_damage(first)
+
+
 def battle(knights_config: dict) -> dict:
-    # creating knights
-    knight_list = []
-    for name, config in knights_config.items():
-        knight_list.append(Knight(name, config))
+    knights = {key: Knight(cfg) for key, cfg in knights_config.items()}
 
-    # Lancelot vs Modred
-    knight_list[0].take_damage(knight_list[2])
-    knight_list[2].take_damage(knight_list[0])
+    duel(knights["lancelot"], knights["mordred"])
+    duel(knights["arthur"], knights["red_knight"])
 
-    # Arthur vs Red Knight
-    knight_list[1].take_damage(knight_list[3])
-    knight_list[3].take_damage(knight_list[1])
-
-    return {knight.name: knight.hp for knight in knight_list}
+    return {knight.name: knight.hp for knight in knights.values()}
 
 
 if __name__ == "__main__":

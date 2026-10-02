@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+
 class Knight:
-    def __init__(self, name: str, config: dict) -> None:
+    def __init__(self, config: dict) -> None:
         self.name = config["name"]
         self.hp = config["hp"]
         self.power = config["power"]
@@ -22,5 +25,5 @@ class Knight:
             setattr(self, stat, max(getattr(self, stat) + value, 0))
 
     def take_damage(self, opponent: Knight) -> None:
-        self.hp -= max(opponent.power - self.protection, 0)
-        self.hp = max(self.hp, 0)
+        damage = max(opponent.power - self.protection, 0)
+        self.hp = max(self.hp - damage, 0)
